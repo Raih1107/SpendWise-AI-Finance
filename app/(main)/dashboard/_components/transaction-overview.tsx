@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/currencies";
 
 const COLORS = [
   "#3b82f6",
@@ -33,7 +34,7 @@ const COLORS = [
   "#ef4444",
 ];
 
-const CustomTooltip = ({ active, payload }) => {
+const CustomTooltip = ({ active, payload, currency }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl p-3">
@@ -41,7 +42,7 @@ const CustomTooltip = ({ active, payload }) => {
           {payload[0].name}
         </p>
         <p className="text-sm text-blue-600 dark:text-blue-400 font-bold">
-          ${payload[0].value.toFixed(2)}
+          {formatCurrency(payload[0].value, currency)}
         </p>
       </div>
     );
@@ -55,6 +56,9 @@ export function DashboardOverview({ accounts, transactions }: { accounts: Serial
   const [selectedAccountId, setSelectedAccountId] = useState(
     accounts.find((a) => a.isDefault)?.id || accounts[0]?.id
   );
+
+  const selectedAccount = accounts.find((a) => a.id === selectedAccountId);
+  const currency = selectedAccount?.currency || "INR";
 
   const accountTransactions = transactions.filter(
     (t) => t.accountId === selectedAccountId
@@ -168,8 +172,8 @@ export function DashboardOverview({ accounts, transactions }: { accounts: Serial
                         : "text-emerald-500"
                     )}
                   >
-                    {transaction.type === "EXPENSE" ? "-" : "+"}$
-                    {transaction.amount.toFixed(2)}
+                    {transaction.type === "EXPENSE" ? "-" : "+"}
+                    {formatCurrency(transaction.amount, currency)}
                   </div>
                 </div>
               ))
@@ -239,7 +243,7 @@ export function DashboardOverview({ accounts, transactions }: { accounts: Serial
                       />
                     ))}
                   </Pie>
-                  <Tooltip content={<CustomTooltip />} />
+                  <Tooltip content={<CustomTooltip currency={currency} />} />
                   <Legend
                     formatter={(value) => (
                       <span className="text-xs text-slate-700 dark:text-slate-300">

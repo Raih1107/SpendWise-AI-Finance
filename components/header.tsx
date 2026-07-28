@@ -42,13 +42,7 @@ const Header = async () => {
               How It Works
               <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full rounded-full" />
             </a>
-            <a
-              href="#testimonials"
-              className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 relative group"
-            >
-              Testimonials
-              <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full rounded-full" />
-            </a>
+
           </SignedOut>
         </div>
 

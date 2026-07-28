@@ -7,25 +7,25 @@ import {
   Zap,
 } from "lucide-react";
 
-import type { StatItem, FeatureItem, HowItWorksItem, TestimonialItem } from "@/types";
+import type { StatItem, FeatureItem, HowItWorksItem } from "@/types";
 
 // Stats Data
 export const statsData: StatItem[] = [
   {
-    value: "50K+",
-    label: "Active Users",
+    value: "Multi",
+    label: "Account Management",
   },
   {
-    value: "$2B+",
-    label: "Transactions Tracked",
+    value: "AI",
+    label: "Receipt Scanning",
   },
   {
-    value: "99.9%",
-    label: "Uptime",
+    value: "Real-time",
+    label: "Budget Tracking",
   },
   {
-    value: "4.9/5",
-    label: "User Rating",
+    value: "10+",
+    label: "Currencies Supported",
   },
 ];
 
@@ -84,30 +84,5 @@ export const howItWorksData: HowItWorksItem[] = [
     title: "3. Get Insights",
     description:
       "Receive AI-powered insights and recommendations to optimize your finances",
-  },
-];
-
-// Testimonials Data
-export const testimonialsData: TestimonialItem[] = [
-  {
-    name: "Sarah Johnson",
-    role: "Small Business Owner",
-    image: "/person1.jpg",
-    quote:
-      "SpendWise has transformed how I manage my business finances. The AI insights have helped me identify cost-saving opportunities I never knew existed.",
-  },
-  {
-    name: "Michael Chen",
-    role: "Freelancer",
-    image: "/person3.jpg",
-    quote:
-      "The receipt scanning feature saves me hours each month. Now I can focus on my work instead of manual data entry and expense tracking.",
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Financial Advisor",
-    image: "/person2.jpg",
-    quote:
-      "I recommend SpendWise to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
   },
 ];

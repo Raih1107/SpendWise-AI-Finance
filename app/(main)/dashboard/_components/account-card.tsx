@@ -40,10 +40,11 @@ const accountTypeColors = {
   },
 };
 
+import { formatCurrency } from "@/lib/currencies";
 import type { SerializedAccount } from "@/types";
 
 export function AccountCard({ account }: { account: SerializedAccount }) {
-  const { name, type, balance, id, isDefault } = account;
+  const { name, type, balance, currency, id, isDefault } = account;
 
   const colors =
     accountTypeColors[type] || accountTypeColors.DEFAULT;
@@ -106,7 +107,7 @@ export function AccountCard({ account }: { account: SerializedAccount }) {
                 {name}
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
-                {type.charAt(0) + type.slice(1).toLowerCase()} Account
+                {type.charAt(0) + type.slice(1).toLowerCase()} Account • {currency || "INR"}
               </p>
             </div>
           </div>
@@ -123,7 +124,7 @@ export function AccountCard({ account }: { account: SerializedAccount }) {
         <CardContent className="pb-3">
           <div className="flex items-end gap-1">
             <span className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-              ${parseFloat(balance).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              {formatCurrency(balance, currency || "INR")}
             </span>
           </div>
           {isDefault && (

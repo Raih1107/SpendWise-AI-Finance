@@ -17,15 +17,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { updateBudget } from "@/actions/budget";
 import { cn } from "@/lib/utils";
+import { formatCurrency, getCurrencySymbol } from "@/lib/currencies";
 
 import type { SerializedBudget } from "@/types";
 
 interface BudgetProgressProps {
   initialBudget: SerializedBudget | null;
   currentExpenses: number;
+  currency?: string;
 }
 
-export function BudgetProgress({ initialBudget, currentExpenses }: BudgetProgressProps) {
+export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR" }: BudgetProgressProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [newBudget, setNewBudget] = useState(
     initialBudget?.amount?.toString() || ""
@@ -153,13 +155,13 @@ export function BudgetProgress({ initialBudget, currentExpenses }: BudgetProgres
             <div className="flex items-center gap-2 flex-1">
               <div className="relative flex-1 max-w-[200px]">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-                  $
+                  {getCurrencySymbol(currency)}
                 </span>
                 <Input
                   type="number"
                   value={newBudget}
                   onChange={(e) => setNewBudget(e.target.value)}
-                  className="pl-7 h-9 rounded-xl border-slate-200 dark:border-slate-700 focus:ring-blue-500"
+                  className="pl-8 h-9 rounded-xl border-slate-200 dark:border-slate-700 focus:ring-blue-500"
                   placeholder="0.00"
                   autoFocus
                   disabled={isLoading}
@@ -189,14 +191,14 @@ export function BudgetProgress({ initialBudget, currentExpenses }: BudgetProgres
               <div>
                 <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
                   {initialBudget
-                    ? `$${currentExpenses.toFixed(2)}`
+                    ? formatCurrency(currentExpenses, currency)
                     : "No budget set"}
                 </div>
                 {initialBudget && (
                   <div className="text-xs text-muted-foreground mt-0.5">
                     of{" "}
                     <span className="font-semibold text-slate-900 dark:text-slate-100">
-                      ${initialBudget.amount.toFixed(2)}
+                      {formatCurrency(initialBudget.amount, currency)}
                     </span>{" "}
                     budget
                   </div>
@@ -236,8 +238,8 @@ export function BudgetProgress({ initialBudget, currentExpenses }: BudgetProgres
               />
             </div>
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>$0</span>
-              <span>${initialBudget.amount.toFixed(2)}</span>
+              <span>{formatCurrency(0, currency)}</span>
+              <span>{formatCurrency(initialBudget.amount, currency)}</span>
             </div>
           </div>
         )}

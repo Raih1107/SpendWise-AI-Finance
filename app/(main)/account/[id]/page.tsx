@@ -5,6 +5,8 @@ import { TransactionTable } from "../_components/transaction-table";
 import { notFound } from "next/navigation";
 import { AccountChart } from "../_components/account-chart";
 
+import { formatCurrency } from "@/lib/currencies";
+
 interface PageProps {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ page?: string }>;
@@ -32,13 +34,13 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
           </h1>
           <p className="text-muted-foreground">
             {account.type.charAt(0) + account.type.slice(1).toLowerCase()}{" "}
-            Account
+            Account • {account.currency || "INR"}
           </p>
         </div>
 
         <div className="text-right pb-2">
           <div className="text-xl sm:text-2xl font-bold">
-            ${Number(account.balance).toFixed(2)}
+            {formatCurrency(Number(account.balance), account.currency || "INR")}
           </div>
           <p className="text-sm text-muted-foreground">
             {pagination.total} Transactions
@@ -50,7 +52,7 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
       <Suspense
         fallback={<BarLoader className="mt-4" width={"100%"} color="#9333ea" />}
       >
-        <AccountChart transactions={transactions} />
+        <AccountChart transactions={transactions} currency={account.currency || "INR"} />
       </Suspense>
 
       {/* Transactions Table */}
@@ -60,6 +62,7 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
         <TransactionTable
           transactions={transactions}
           pagination={pagination}
+          currency={account.currency || "INR"}
         />
       </Suspense>
     </div>

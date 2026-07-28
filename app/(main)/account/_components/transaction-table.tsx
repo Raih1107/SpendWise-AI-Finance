@@ -65,9 +65,10 @@ const RECURRING_INTERVALS = {
   YEARLY: "Yearly",
 };
 
+import { formatCurrency } from "@/lib/currencies";
 import type { SerializedTransaction, PaginationMeta } from "@/types";
 
-export function TransactionTable({ transactions, pagination }: { transactions: SerializedTransaction[]; pagination: PaginationMeta }) {
+export function TransactionTable({ transactions, pagination, currency = "INR" }: { transactions: SerializedTransaction[]; pagination: PaginationMeta; currency?: string }) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [sortConfig, setSortConfig] = useState({
     field: "date",
@@ -372,8 +373,8 @@ export function TransactionTable({ transactions, pagination }: { transactions: S
                         : "text-green-500"
                     )}
                   >
-                    {transaction.type === "EXPENSE" ? "-" : "+"}$
-                    {transaction.amount.toFixed(2)}
+                    {transaction.type === "EXPENSE" ? "-" : "+"}
+                    {formatCurrency(transaction.amount, currency)}
                   </TableCell>
                   <TableCell>
                     {transaction.isRecurring ? (

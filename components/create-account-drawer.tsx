@@ -28,6 +28,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { createAccount } from "@/actions/dashboard";
 import { accountSchema } from "@/app/lib/schema";
+import { CURRENCY_LIST, getCurrencySymbol } from "@/lib/currencies";
 
 import type { ReactNode } from "react";
 
@@ -46,9 +47,12 @@ export function CreateAccountDrawer({ children }: { children: ReactNode }) {
       name: "",
       type: "CURRENT",
       balance: "",
+      currency: "INR",
       isDefault: false,
     },
   });
+
+  const selectedCurrency = watch("currency") || "INR";
 
   const {
     loading: createAccountLoading,
@@ -147,6 +151,39 @@ export function CreateAccountDrawer({ children }: { children: ReactNode }) {
                 )}
               </div>
 
+              {/* Currency */}
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="currency"
+                  className="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                >
+                  Currency
+                </label>
+                <Select
+                  onValueChange={(value) => setValue("currency", value)}
+                  defaultValue={watch("currency")}
+                >
+                  <SelectTrigger
+                    id="currency"
+                    className="h-10 rounded-xl border-slate-200 dark:border-slate-700"
+                  >
+                    <SelectValue placeholder="Select currency" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl max-h-60">
+                    {CURRENCY_LIST.map((curr) => (
+                      <SelectItem key={curr.code} value={curr.code}>
+                        {curr.code} - {curr.name} ({curr.symbol})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.currency && (
+                  <p className="text-xs text-red-500 flex items-center gap-1">
+                    <span>⚠</span> {errors.currency.message}
+                  </p>
+                )}
+              </div>
+
               {/* Initial Balance */}
               <div className="space-y-1.5">
                 <label
@@ -157,7 +194,7 @@ export function CreateAccountDrawer({ children }: { children: ReactNode }) {
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm font-medium">
-                    $
+                    {getCurrencySymbol(selectedCurrency)}
                   </span>
                   <Input
                     id="balance"
@@ -165,7 +202,7 @@ export function CreateAccountDrawer({ children }: { children: ReactNode }) {
                     step="0.01"
                     placeholder="0.00"
                     {...register("balance")}
-                    className="pl-7 h-10 rounded-xl border-slate-200 dark:border-slate-700 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-8 h-10 rounded-xl border-slate-200 dark:border-slate-700 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 {errors.balance && (

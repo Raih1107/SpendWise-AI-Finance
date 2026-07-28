@@ -7,11 +7,10 @@ import {
   featuresData,
   howItWorksData,
   statsData,
-  testimonialsData,
 } from "@/data/landing";
 import HeroSection from "@/components/hero";
 import Link from "next/link";
-import { ArrowRight, Star, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 const LandingPage = () => {
   return (
@@ -114,63 +113,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="section-padding">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20 text-green-700 dark:text-green-300 text-xs font-semibold mb-4 uppercase tracking-wider">
-              Testimonials
-            </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
-              Loved by{" "}
-              <span className="text-gradient">thousands of users</span>
-            </h2>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonialsData.map((testimonial, index) => (
-              <Card
-                key={index}
-                className="glass-card rounded-2xl hover-lift border-0 overflow-hidden"
-              >
-                <CardContent className="p-6">
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-5 italic">
-                    &quot;{testimonial.quote}&quot;
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
-                      <Image
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        width={44}
-                        height={44}
-                        className="rounded-full ring-2 ring-blue-500/20"
-                      />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-sm text-slate-900 dark:text-slate-100">
-                        {testimonial.name}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {testimonial.role}
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="section-padding relative overflow-hidden">
@@ -188,7 +131,7 @@ const LandingPage = () => {
               Your Finances?
             </h2>
             <p className="text-blue-100 mb-8 text-lg">
-              Join thousands of users already managing their finances smarter with SpendWise.
+              Start managing your finances smarter with AI-powered insights, budget tracking, and receipt scanning.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/dashboard">

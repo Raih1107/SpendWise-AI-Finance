@@ -32,6 +32,8 @@ import { createTransaction, updateTransaction } from "@/actions/transaction";
 import { transactionSchema } from "@/app/lib/schema";
 import { ReceiptScanner } from "./recipt-scanner";
 
+import { formatCurrency } from "@/lib/currencies";
+
 import type { SerializedAccount, SerializedTransaction } from "@/types";
 
 interface AddTransactionFormProps {
@@ -191,7 +193,7 @@ export function AddTransactionForm({
             <SelectContent>
               {accounts.map((account) => (
                 <SelectItem key={account.id} value={account.id}>
-                  {account.name} (${parseFloat(account.balance).toFixed(2)})
+                  {account.name} ({formatCurrency(account.balance, account.currency || "INR")})
                 </SelectItem>
               ))}
               <CreateAccountDrawer>

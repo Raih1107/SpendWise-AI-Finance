@@ -30,9 +30,10 @@ const DATE_RANGES = {
   ALL: { label: "All Time", days: null },
 };
 
+import { formatCurrency, getCurrencySymbol } from "@/lib/currencies";
 import type { SerializedTransaction } from "@/types";
 
-export function AccountChart({ transactions }: { transactions: SerializedTransaction[] }) {
+export function AccountChart({ transactions, currency = "INR" }: { transactions: SerializedTransaction[]; currency?: string }) {
   const [dateRange, setDateRange] = useState("1M");
 
   const filteredData = useMemo(() => {
@@ -102,13 +103,13 @@ export function AccountChart({ transactions }: { transactions: SerializedTransac
           <div className="text-center">
             <p className="text-muted-foreground">Total Income</p>
             <p className="text-lg font-bold text-green-500">
-              ${totals.income.toFixed(2)}
+              {formatCurrency(totals.income, currency)}
             </p>
           </div>
           <div className="text-center">
             <p className="text-muted-foreground">Total Expenses</p>
             <p className="text-lg font-bold text-red-500">
-              ${totals.expense.toFixed(2)}
+              {formatCurrency(totals.expense, currency)}
             </p>
           </div>
           <div className="text-center">
@@ -120,7 +121,7 @@ export function AccountChart({ transactions }: { transactions: SerializedTransac
                   : "text-red-500"
               }`}
             >
-              ${(totals.income - totals.expense).toFixed(2)}
+              {formatCurrency(totals.income - totals.expense, currency)}
             </p>
           </div>
         </div>
@@ -141,10 +142,10 @@ export function AccountChart({ transactions }: { transactions: SerializedTransac
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
-                tickFormatter={(value) => `$${value}`}
+                tickFormatter={(value) => `${getCurrencySymbol(currency)}${value}`}
               />
               <Tooltip
-                formatter={(value) => [`$${value}`, undefined]}
+                formatter={(value) => [formatCurrency(Number(value), currency), undefined]}
                 contentStyle={{
                   backgroundColor: "hsl(var(--popover))",
                   border: "1px solid hsl(var(--border))",

@@ -30,6 +30,7 @@ export interface SerializedAccount {
   name: string;
   type: AccountType;
   balance: number;
+  currency: string;
   isDefault: boolean;
   userId: string;
   createdAt: Date;

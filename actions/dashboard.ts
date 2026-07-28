@@ -15,6 +15,7 @@ const accountSchema = z.object({
   name: z.string().min(1, "Name is required"),
   type: z.enum(["CURRENT", "SAVINGS"]),
   balance: z.string().or(z.number()), // Can come as string from form
+  currency: z.string().min(1).default("INR"),
   isDefault: z.boolean().default(false),
 });
 
