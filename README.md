@@ -6,7 +6,7 @@ Live logic runs almost entirely through **Server Actions**. Prisma talks to Post
 
 **Stack:** Next.js 16 (App Router) · TypeScript · PostgreSQL + Prisma · Clerk · Inngest · Gemini · Arcjet · Resend
 
-![Landing page](public/screenshots/landing-page.png)
+![Landing page](public/LandingPage.png)
 *Landing page — nothing unusual here, but note the copy is honest about what the app does rather than generic marketing filler. "Get Started" goes straight into Clerk auth, no gated waitlist.*
 
 ---
@@ -22,23 +22,23 @@ Live logic runs almost entirely through **Server Actions**. Prisma talks to Post
 - Idempotency keys on transaction creation so a retried form submission can't double-charge an account
 - Audit log on every account/transaction/budget mutation
 
-![Sign in](public/screenshots/auth.png)
+![Sign in](public/AuthPage.png)
 *Auth is fully delegated to Clerk — no custom password handling, session logic, or "forgot password" flow written by hand. Google OAuth and email/password both go through the same hosted component. That "Development mode" banner is Clerk's own — it disappears once real API keys are set in production.*
 
 ## Dashboard
 
-![Dashboard](public/screenshots/dashboard.png)
+![Dashboard](public/Dashboard.png)
 *Budget progress bar, recent transactions, and a category breakdown all pull from the same `getCurrentBudget` and `getDashboardData` server actions — no client-side fetch waterfall. The transaction list here is real seeded data, not placeholder rows.*
 
-![Analytics](public/screenshots/analytics.png)
+![Analytics](public/Analytics.png)
 *Per-account view with an income/expense chart built on Recharts. The numbers above the chart (Total Income, Total Expenses, Net) are computed server-side from the same `Transaction` rows the chart renders, not two separate sources of truth.*
 
 ## Adding a transaction
 
-![Add transaction](public/screenshots/add-transaction.png)
+![Add transaction](public/AddTransaction.png)
 *The "Scan Receipt with AI" button is the actual Gemini vision integration described below, not a decorative label — it calls `scanReceipt()`, which sends the image to Gemini and pre-fills amount, category, and description. The recurring-transaction toggle at the bottom is what feeds the Inngest scheduler.*
 
-![Transaction log](public/screenshots/transaction-logs.png)
+![Transaction log](public/TransactionLogs.png)
 *Full transaction table with search, type/category filters, and pagination — backed by `getAccountWithTransactions`, which does the pagination math (`skip`/`take`) in the query itself rather than fetching everything and slicing client-side. Recurring entries are visibly tagged.*
 
 ## Why it's built this way
@@ -64,10 +64,10 @@ Splitting the recurring-transaction trigger from the processor (rather than one 
 
 Two separate Gemini integrations, doing different jobs:
 
-![AI insights card](public/screenshots/ai-insights-card.png)
+![AI insights card](public/AIInsight1.png)
 *Rendered inside the app — three insights generated from that month's actual income/expense/category totals passed into the prompt, not a canned response. If Gemini's output fails to parse as JSON, `generateFinancialInsights` falls back to three generic but still useful lines rather than crashing the email job — a small detail, but it's the difference between "handled a failure mode" and "hoped it wouldn't happen."*
 
-![Monthly report email](public/screenshots/ai-insights-email.png)
+![Monthly report email](public/AIInsight2.png)
 *The other end of the same pipeline — this is a real email sent through Resend by the `generateMonthlyReports` Inngest function, not a static mockup. The numbers in the email match what the dashboard shows for the same month.*
 
 ## Architecture
