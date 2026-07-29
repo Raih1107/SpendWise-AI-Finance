@@ -141,8 +141,8 @@ proxy.ts                      Arcjet + Clerk middleware (Next 16 naming)
 ## Running it locally
 
 ```bash
-git clone https://github.com/yourusername/spendwise.git
-cd spendwise
+git clone https://github.com/Raih1107/SpendWise-AI-Finance.git
+cd SpendWise-AI-Finance
 npm install
 npx prisma migrate dev
 npm run dev
