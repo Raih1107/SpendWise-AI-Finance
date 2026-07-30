@@ -33,7 +33,7 @@ const DATE_RANGES = {
 import { formatCurrency, getCurrencySymbol } from "@/lib/currencies";
 import type { SerializedTransaction } from "@/types";
 
-export function AccountChart({ transactions, currency = "INR" }: { transactions: SerializedTransaction[]; currency?: string }) {
+export function AccountChart({ transactions, currency = "USD" }: { transactions: SerializedTransaction[]; currency?: string }) {
   const [dateRange, setDateRange] = useState("1M");
 
   const filteredData = useMemo(() => {

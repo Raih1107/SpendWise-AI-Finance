@@ -139,6 +139,7 @@ export interface MonthlyReportData {
     byCategory: Record<string, number>;
   };
   insights: string[];
+  currency: string;
 }
 
 export interface BudgetAlertData {
@@ -146,6 +147,7 @@ export interface BudgetAlertData {
   budgetAmount: number;
   totalExpenses: number;
   accountName?: string;
+  currency: string;
 }
 
 export interface EmailTemplateProps {

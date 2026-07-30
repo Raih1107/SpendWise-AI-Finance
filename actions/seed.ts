@@ -103,10 +103,10 @@ export async function seedTransactions(): Promise<{ success: boolean; message?: 
         data: (transactions as any),
       });
 
-      // Update account balance
+      // Update account balance and set currency to USD for seed data
       await tx.account.update({
         where: { id: ACCOUNT_ID },
-        data: { balance: totalBalance },
+        data: { balance: totalBalance, currency: "USD" },
       });
     });
 

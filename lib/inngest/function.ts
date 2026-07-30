@@ -182,6 +182,7 @@ export const generateMonthlyReports = inngest.createFunction(
         });
 
         const insights = await generateFinancialInsights(stats, monthName);
+        const userCurrency = user.accounts.find((a) => a.isDefault)?.currency || "USD";
 
         await sendEmail({
           to: user.email,
@@ -193,6 +194,7 @@ export const generateMonthlyReports = inngest.createFunction(
               stats,
               month: monthName,
               insights,
+              currency: userCurrency,
             },
           }) as React.ReactElement,
         });
@@ -266,6 +268,7 @@ export const checkBudgetAlerts = inngest.createFunction(
                 budgetAmount: parseFloat(budgetAmount.toFixed(1)),
                 totalExpenses: parseFloat(totalExpenses.toFixed(1)),
                 accountName: defaultAccount.name,
+                currency: defaultAccount.currency,
               },
             }) as React.ReactElement,
           });

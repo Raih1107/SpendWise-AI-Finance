@@ -193,7 +193,7 @@ export function AddTransactionForm({
             <SelectContent>
               {accounts.map((account) => (
                 <SelectItem key={account.id} value={account.id}>
-                  {account.name} ({formatCurrency(account.balance, account.currency || "INR")})
+                  {account.name} ({formatCurrency(account.balance, account.currency || "USD")})
                 </SelectItem>
               ))}
               <CreateAccountDrawer>

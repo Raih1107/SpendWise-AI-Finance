@@ -46,6 +46,7 @@ const PREVIEW_DATA = {
 };
 
 import type { EmailTemplateProps, MonthlyReportData, BudgetAlertData } from "@/types";
+import { formatCurrency } from "@/lib/currencies";
 
 export default function EmailTemplate({
   userName = "",
@@ -71,16 +72,16 @@ export default function EmailTemplate({
             <Section style={styles.statsContainer}>
               <div style={styles.stat}>
                 <Text style={styles.text}>Total Income</Text>
-                <Text style={styles.heading}>${monthlyData?.stats.totalIncome}</Text>
+                <Text style={styles.heading}>{formatCurrency(monthlyData?.stats.totalIncome || 0, monthlyData?.currency)}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Total Expenses</Text>
-                <Text style={styles.heading}>${monthlyData?.stats.totalExpenses}</Text>
+                <Text style={styles.heading}>{formatCurrency(monthlyData?.stats.totalExpenses || 0, monthlyData?.currency)}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Net</Text>
                 <Text style={styles.heading}>
-                  ${monthlyData?.stats.totalIncome - monthlyData?.stats.totalExpenses}
+                  {formatCurrency((monthlyData?.stats.totalIncome || 0) - (monthlyData?.stats.totalExpenses || 0), monthlyData?.currency)}
                 </Text>
               </div>
             </Section>
@@ -93,7 +94,7 @@ export default function EmailTemplate({
                   ([category, amount]) => (
                     <div key={category} style={styles.row}>
                       <Text style={styles.text}>{category}</Text>
-                      <Text style={styles.text}>${amount}</Text>
+                      <Text style={styles.text}>{formatCurrency(amount, monthlyData?.currency)}</Text>
                     </div>
                   )
                 )}
@@ -139,16 +140,16 @@ export default function EmailTemplate({
             <Section style={styles.statsContainer}>
               <div style={styles.stat}>
                 <Text style={styles.text}>Budget Amount</Text>
-                <Text style={styles.heading}>${budgetData?.budgetAmount}</Text>
+                <Text style={styles.heading}>{formatCurrency(budgetData?.budgetAmount || 0, budgetData?.currency)}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Spent So Far</Text>
-                <Text style={styles.heading}>${budgetData?.totalExpenses}</Text>
+                <Text style={styles.heading}>{formatCurrency(budgetData?.totalExpenses || 0, budgetData?.currency)}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Remaining</Text>
                 <Text style={styles.heading}>
-                  ${budgetData?.budgetAmount - budgetData?.totalExpenses}
+                  {formatCurrency((budgetData?.budgetAmount || 0) - (budgetData?.totalExpenses || 0), budgetData?.currency)}
                 </Text>
               </div>
             </Section>

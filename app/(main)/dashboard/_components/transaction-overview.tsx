@@ -58,7 +58,7 @@ export function DashboardOverview({ accounts, transactions }: { accounts: Serial
   );
 
   const selectedAccount = accounts.find((a) => a.id === selectedAccountId);
-  const currency = selectedAccount?.currency || "INR";
+  const currency = selectedAccount?.currency || "USD";
 
   const accountTransactions = transactions.filter(
     (t) => t.accountId === selectedAccountId

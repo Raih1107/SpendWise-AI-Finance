@@ -23,9 +23,9 @@ export const SUPPORTED_CURRENCIES: Record<
  */
 export function formatCurrency(
   amount: number,
-  currencyCode: string = "INR"
+  currencyCode: string = "USD"
 ): string {
-  const currency = SUPPORTED_CURRENCIES[currencyCode] || SUPPORTED_CURRENCIES.INR;
+  const currency = SUPPORTED_CURRENCIES[currencyCode] || SUPPORTED_CURRENCIES.USD;
   return new Intl.NumberFormat(currency.locale, {
     style: "currency",
     currency: currency.code,
@@ -37,8 +37,8 @@ export function formatCurrency(
 /**
  * Get just the currency symbol for a given currency code.
  */
-export function getCurrencySymbol(currencyCode: string = "INR"): string {
-  return SUPPORTED_CURRENCIES[currencyCode]?.symbol || "₹";
+export function getCurrencySymbol(currencyCode: string = "USD"): string {
+  return SUPPORTED_CURRENCIES[currencyCode]?.symbol || "$";
 }
 
 /** List of currency codes for use in dropdowns */

@@ -34,13 +34,13 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
           </h1>
           <p className="text-muted-foreground">
             {account.type.charAt(0) + account.type.slice(1).toLowerCase()}{" "}
-            Account • {account.currency || "INR"}
+            Account • {account.currency || "USD"}
           </p>
         </div>
 
         <div className="text-right pb-2">
           <div className="text-xl sm:text-2xl font-bold">
-            {formatCurrency(Number(account.balance), account.currency || "INR")}
+            {formatCurrency(Number(account.balance), account.currency || "USD")}
           </div>
           <p className="text-sm text-muted-foreground">
             {pagination.total} Transactions
@@ -52,7 +52,7 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
       <Suspense
         fallback={<BarLoader className="mt-4" width={"100%"} color="#9333ea" />}
       >
-        <AccountChart transactions={transactions} currency={account.currency || "INR"} />
+        <AccountChart transactions={transactions} currency={account.currency || "USD"} />
       </Suspense>
 
       {/* Transactions Table */}
@@ -62,7 +62,7 @@ export default async function AccountPage({ params, searchParams }: PageProps) {
         <TransactionTable
           transactions={transactions}
           pagination={pagination}
-          currency={account.currency || "INR"}
+          currency={account.currency || "USD"}
         />
       </Suspense>
     </div>

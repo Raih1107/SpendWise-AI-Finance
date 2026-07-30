@@ -63,7 +63,7 @@ const RECURRING_INTERVALS = {
   YEARLY: "Yearly",
 };
 
-export function NoPaginationTransactionTable({ transactions, currency = "INR" }) {
+export function NoPaginationTransactionTable({ transactions, currency = "USD" }) {
   const [selectedIds, setSelectedIds] = useState([]);
   const [sortConfig, setSortConfig] = useState({
     field: "date",

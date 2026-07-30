@@ -107,7 +107,7 @@ export function AccountCard({ account }: { account: SerializedAccount }) {
                 {name}
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
-                {type.charAt(0) + type.slice(1).toLowerCase()} Account • {currency || "INR"}
+                {type.charAt(0) + type.slice(1).toLowerCase()} Account • {currency || "USD"}
               </p>
             </div>
           </div>
@@ -124,7 +124,7 @@ export function AccountCard({ account }: { account: SerializedAccount }) {
         <CardContent className="pb-3">
           <div className="flex items-end gap-1">
             <span className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-              {formatCurrency(balance, currency || "INR")}
+              {formatCurrency(balance, currency || "USD")}
             </span>
           </div>
           {isDefault && (

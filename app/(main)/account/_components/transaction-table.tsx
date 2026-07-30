@@ -68,7 +68,7 @@ const RECURRING_INTERVALS = {
 import { formatCurrency } from "@/lib/currencies";
 import type { SerializedTransaction, PaginationMeta } from "@/types";
 
-export function TransactionTable({ transactions, pagination, currency = "INR" }: { transactions: SerializedTransaction[]; pagination: PaginationMeta; currency?: string }) {
+export function TransactionTable({ transactions, pagination, currency = "USD" }: { transactions: SerializedTransaction[]; pagination: PaginationMeta; currency?: string }) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [sortConfig, setSortConfig] = useState({
     field: "date",

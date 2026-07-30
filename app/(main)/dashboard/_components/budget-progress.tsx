@@ -27,7 +27,7 @@ interface BudgetProgressProps {
   currency?: string;
 }
 
-export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR" }: BudgetProgressProps) {
+export function BudgetProgress({ initialBudget, currentExpenses, currency = "USD" }: BudgetProgressProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [newBudget, setNewBudget] = useState(
     initialBudget?.amount?.toString() || ""
