@@ -205,6 +205,3 @@ vercel
 - Bank account integration (Plaid/Setu) would remove manual entry entirely
 - CSV/PDF export of transaction history
 
-## License
-
-MIT
