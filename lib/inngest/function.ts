@@ -65,7 +65,7 @@ export const processRecurringTransaction = inngest.createFunction(
           data: {
             lastProcessed: new Date(),
             nextRecurringDate: calculateNextRecurringDate(
-              new Date(),
+              new Date(transaction.nextRecurringDate!),
               transaction.recurringInterval as string
             ),
           },
@@ -231,8 +231,12 @@ export const checkBudgetAlerts = inngest.createFunction(
       if (!defaultAccount) continue;
 
       await step.run(`check-budget-${budget.id}`, async () => {
-        const startDate = new Date();
-        startDate.setDate(1);
+        const currentDate = new Date();
+        const startOfMonth = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          1
+        );
 
         const expenses = await db.transaction.aggregate({
           where: {
@@ -240,8 +244,9 @@ export const checkBudgetAlerts = inngest.createFunction(
             accountId: defaultAccount.id,
             type: "EXPENSE",
             date: {
-              gte: startDate,
+              gte: startOfMonth,
             },
+            deletedAt: null,
           },
           _sum: {
             amount: true,
